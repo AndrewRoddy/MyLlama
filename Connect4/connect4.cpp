@@ -1,12 +1,10 @@
 #include <iostream>
 #include <list>
 
-using std::cout;
-using std::cin;
-using std::endl;
-using std::list;
+using std::cout; using std::cin; using std::endl; using std::list;
 
 char arr[3][3] = {{'1', '2', '3'},{'4', '5', '6'},{'7', '8', '9'}} ;
+char player = 'X';
 
 void drawBoard() {
     cout << "\n\n\n\n\n\n\n\n\n" << endl; // Adds a ton of space to the top
@@ -45,18 +43,51 @@ int getCol(int player) {
     return column;
 }
 
+char winCheck() {
+    char check = 'X';
+    for (int i = 0; i < 2; ++i) {
+        for(int z = 0; z < 3; ++z) {
+            if (arr[z][0] == check && arr[z][1] == check && arr[z][2] == check) {
+            return check;
+            }
+            if (arr[0][z] == check && arr[1][z] == check && arr[2][z] == check) {
+            return check;
+            }
+        }
+        if (arr[0][0] == check && arr[1][1] == check && arr[2][2] == check) {
+            return check;
+        }
+        if (arr[0][2] == check && arr[1][1] == check && arr[2][0] == check) {
+            return check;
+        }
+        check = 'O';
+    }
+    return 'Z';
+}
+
+void restartGame() {
+    arr[0][0] = '1'; arr[0][1] = '2'; arr[0][2] = '3';
+    arr[1][0] = '4'; arr[1][1] = '5'; arr[1][2] = '6';
+    arr[2][0] = '7'; arr[2][1] = '8'; arr[2][2] = '9';
+    player = 'X';
+    drawBoard();
+}
+
 main() {
-    char player = 'X';
     int move;
-    while (move != 9) {
-        drawBoard();
+    bool running = true;
+    char restart;
+    drawBoard();
+
+    while (running == true) {
+        
         cout << "Player " << player << "'s turn: ";
         cin >> move;
 
         int row = getRow(move);
         int col = getCol(move);
-        
-        if (arr[row][col] == ' '){        
+
+        if (arr[row][col] != 'X' && arr[row][col] != 'O' ){        
             if (player == 'X') {
                 arr[row][col] = 'X';
                 player = 'O';
@@ -64,7 +95,26 @@ main() {
                 arr[row][col] = 'O';
                 player = 'X';
             }
+
+            drawBoard();
+
+       } else {
+        cout << "You cannot move there!" << endl;
        }
+
+  
+        if (winCheck() != 'Z') {
+            cout << "WINNER IS " << winCheck() << "\nPlay Again? Y/N ";;
+            cin >> restart;
+            if (restart != 'Y') {
+                running = false;
+            } else {
+                restartGame();
+            }
+        }
+
+       
+       
     }
     
 
