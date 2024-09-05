@@ -1,7 +1,7 @@
 from llama_cpp import Llama
 
 def ask_llama(message="Say ERROR back to me",
-              model_path=".venv\\models\\llama-2-7b-chat.Q2_K.gguf",
+              model_path=".myLlama\\models\\llama-2-7b-chat.Q2_K.gguf",
               verbose=False,
               system_message="Q: In english.",
               max_tokens=64
