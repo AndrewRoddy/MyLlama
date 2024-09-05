@@ -9,7 +9,8 @@ char player = 'X';
 void drawBoard() {
     cout << "\n\n\n\n\n\n\n\n\n" << endl; // Adds a ton of space to the top
     int counter = 0;
-    int rcount = 0;
+    int divider_count = 0;
+    
     for (int r = 0; r < 3; r++) { // Renders all of the rows
         counter = 0;
         for (int c = 0; c < 3; c++) { // Iterates through the rows
@@ -20,9 +21,11 @@ void drawBoard() {
             }
         }
         cout << endl;
-        if (rcount < 2) {
+
+        // Makes sure we do not put a divider at the bottom
+        if (divider_count < 2) {
             cout << "--- --- ---" << endl;
-            rcount = rcount + 1;
+            divider_count += 1;
         }
     }
 }
@@ -80,7 +83,6 @@ main() {
     drawBoard();
 
     while (running == true) {
-        
         cout << "Player " << player << "'s turn: ";
         cin >> move;
 
@@ -97,12 +99,11 @@ main() {
             }
 
             drawBoard();
-
+        
        } else {
         cout << "You cannot move there!" << endl;
        }
 
-  
         if (winCheck() != 'Z') {
             cout << "WINNER IS " << winCheck() << "\nPlay Again? Y/N ";;
             cin >> restart;
@@ -112,10 +113,5 @@ main() {
                 restartGame();
             }
         }
-
-       
-       
     }
-    
-
 }
