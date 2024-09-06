@@ -1,0 +1,14 @@
+#include <iostream>
+#include <cstdlib>  // For std::system
+
+using std::string; using std::system;
+
+void Llama(){
+    system("cd ..\\llama.cpp && del ..\\MyLlama\\output.txt && .\\llama-cli.exe -m .\\models\\llama-2-7b-chat.Q2_K.gguf --predict 20 --prompt \"Q:What are the largest planets in the solar system? A: \" > ..\\MyLlama\\output.txt");
+}
+
+int main() {
+
+    Llama();
+    
+}
