@@ -1,19 +1,36 @@
 #include <iostream>
 #include <cstdlib>  // For std::system
-//#include <sstream>
+#include <sstream>
 //#include <fstream> // For reading files
-//#include <unistd.h> // For sleep() // In seconds
+#include <unistd.h> // For sleep() // In seconds
 
-//using std::cin; using std::cout; using std::endl;
-using std::string; using std::system;// using std::ifstream;
+using std::cin; using std::cout; using std::endl;
+using std::string; using std::system;
 
-void Llama(){
-    system("cd ..\\llama.cpp && del ..\\MyLlama\\output.txt && .\\llama-cli.exe -m .\\models\\llama-2-7b-chat.Q2_K.gguf --predict 20 --prompt \"Q:What are the largest planets in the solar system? A: \" > ..\\MyLlama\\output.txt");
+void Llama(string prompt="STOP", string length = "20"){
+    std::ostringstream oss; // Used to concatenate strings
+    
+    system("del output.txt");
+
+    sleep(1);
+
+    oss << "cd ..\\llama.cpp && del ..\\MyLlama\\output.txt && .\\llama-cli.exe -m .\\models\\llama-2-7b-chat.Q2_K.gguf --predict " << length << " --prompt \"Q:" << prompt << " A: \" > ..\\MyLlama\\output.txt";
+    
+    string command;
+    command = oss.str();
+
+    system(command.c_str());
+
 }
 
 int main() {
+    string prompt;
+    string length = "20";
 
-    Llama();
+    cout << "Enter your prompt: ";
+    std::getline(std::cin, prompt);
+
+    Llama(prompt, length);
     
     /*
     //system(".\\llama-cli.exe -m .\\llama.cpp\\models\\llama-2-7b-chat.Q2_K.gguf --predict 10 --prompt \"What is your favorite color\" > output.txt");
