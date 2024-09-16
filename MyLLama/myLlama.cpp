@@ -28,7 +28,7 @@ int main() {
     string length = "20";
 
     cout << "Enter your prompt: ";
-    std::getline(std::cin, prompt);
+    std::getline(cin, prompt);
 
     Llama(prompt, length);
     
