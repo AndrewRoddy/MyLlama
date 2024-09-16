@@ -14,4 +14,5 @@ Steps to make this work:
 3. Inside the `llama.cpp\models` folder place `llama-2-7b-chat.Q2_K.gguf`
     - [Download Website](https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGUF/tree/mai)
     - [Instant Download](https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGUF/resolve/main/llama-2-7b-chat.Q2_K.gguf?download=true)
+    
 
