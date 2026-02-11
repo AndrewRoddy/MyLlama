@@ -28,12 +28,38 @@ void Llama(
 
     sleep(1);
 
-    oss << "cd ..\\llama.cpp && del ..\\myllama\\output.txt && .\\build\\bin\\Release\\llama-completion.exe -m .\\models\\llama-2-7b-chat.Q2_K.gguf --predict " << length << " --prompt \"Q:"<< system_prompt << prompt << " A: \" > ..\\myllama\\output.txt";
+    oss << "cd ..\\llama.cpp && del ..\\myllama\\output.txt && .\\build\\bin\\Release\\llama-completion.exe -m .\\models\\llama-2-7b-chat.Q2_K.gguf --predict " << length << " --prompt \"Q:"<< system_prompt << prompt << " A: \" > ..\\myllama\\output.txt 2>nul";
     
     string command;
     command = oss.str();
 
     system(command.c_str());
+
+    // Clean output.txt: remove ANSI escape codes and non-ASCII characters
+    std::ifstream infile("output.txt");
+    string raw((std::istreambuf_iterator<char>(infile)),
+                std::istreambuf_iterator<char>());
+    infile.close();
+
+    string cleaned;
+    for (size_t i = 0; i < raw.size(); i++) {
+        // Skip ANSI escape sequences (ESC [ ... final_char)
+        if (raw[i] == '\x1b' && i + 1 < raw.size() && raw[i + 1] == '[') {
+            i += 2; // skip ESC and [
+            while (i < raw.size() && raw[i] != 'm' && raw[i] != 'H'
+                   && raw[i] != 'J' && raw[i] != 'K' && raw[i] != 'A'
+                   && raw[i] != 'B' && raw[i] != 'C' && raw[i] != 'D')
+                i++;
+            continue;
+        }
+        // Keep only printable ASCII, newlines, and tabs
+        if ((raw[i] >= 32 && raw[i] <= 126) || raw[i] == '\n' || raw[i] == '\t')
+            cleaned += raw[i];
+    }
+
+    std::ofstream outfile("output.txt");
+    outfile << cleaned;
+    outfile.close();
 }
 
 int main() {
