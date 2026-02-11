@@ -33,17 +33,13 @@ string clean_output (string raw){
 
 void Llama(
     string prompt="STOP",
-    string length = "1000",
-    string system_prompt = "In english, "
+    int length = 1000,
+    string system_prompt = "In english, ",
+    string output_file = "output.txt",
+    string model_name = "llama-2-7b-chat.Q2_K.gguf"
     ){
-    string output_file = "output.txt";
-    string model_name = "llama-2-7b-chat.Q2_K.gguf";
 
     std::ostringstream oss; // Used to concatenate strings
-
-    // Adds length and system prompt to the length
-    // Adds 6 because Q: and A: is 6 characters long!
-    length += prompt.length() + system_prompt.length() + 6; 
 
     // Ensure output_file exists before running
     { std::ofstream touch(output_file, std::ios::app); }
@@ -55,7 +51,7 @@ void Llama(
 
     system(command.c_str());
 
-    // Create the file if it wasn't created by llama-completion
+    // Create the file if it wasn't created already
     { std::ofstream touch(output_file, std::ios::app); }
     std::ifstream infile(output_file);
     string raw((std::istreambuf_iterator<char>(infile)),
@@ -72,7 +68,7 @@ void Llama(
 
 int main() {
     string prompt;
-    string length = "20";
+    int length = 99;
 
     cout << "Enter your prompt: ";
     std::getline(cin, prompt);
