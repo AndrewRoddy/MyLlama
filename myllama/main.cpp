@@ -36,35 +36,35 @@ void Llama(
     string length = "1000",
     string system_prompt = "In english, "
     ){
+    string output_file = "my_output.txt";
+
     std::ostringstream oss; // Used to concatenate strings
 
     // Adds length and system prompt to the length
     // Adds 6 because Q: and A: is 6 characters long!
     length += prompt.length() + system_prompt.length() + 6; 
 
-    // Ensure output.txt exists before running
-    { std::ofstream touch("output.txt", std::ios::app); }
+    // Ensure output_file exists before running
+    { std::ofstream touch(output_file, std::ios::app); }
 
-    sleep(1);
-
-    oss << "cd ..\\llama.cpp && .\\build\\bin\\Release\\llama-completion.exe -m .\\models\\llama-2-7b-chat.Q2_K.gguf --predict " << length << " --prompt \"Q:"<< system_prompt << prompt << " A: \" > ..\\myllama\\output.txt 2>nul";
+    oss << "cd ..\\llama.cpp && .\\build\\bin\\Release\\llama-completion.exe -m .\\models\\llama-2-7b-chat.Q2_K.gguf --predict " << length << " --prompt \"Q:"<< system_prompt << prompt << " A: \" > ..\\myllama\\" << output_file << " 2>nul";
     
     string command;
     command = oss.str();
 
     system(command.c_str());
 
-    // Clean output.txt: remove ANSI escape codes and non-ASCII characters
     // Create the file if it wasn't created by llama-completion
-    { std::ofstream touch("output.txt", std::ios::app); }
-    std::ifstream infile("output.txt");
+    { std::ofstream touch(output_file, std::ios::app); }
+    std::ifstream infile(output_file);
     string raw((std::istreambuf_iterator<char>(infile)),
-                std::istreambuf_iterator<char>());
+    std::istreambuf_iterator<char>());
     infile.close();
-
+    
+    // Clean output_file: remove ANSI escape codes and non-ASCII characters
     string cleaned = clean_output(raw);
     
-    std::ofstream outfile("output.txt");
+    std::ofstream outfile(output_file);
     outfile << cleaned;
     outfile.close();
 }
