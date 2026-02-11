@@ -28,7 +28,7 @@ void Llama(
 
     sleep(1);
 
-    oss << "cd ..\\llama.cpp && del ..\\MyLlama\\output.txt && .\\llama-cli.exe -m .\\models\\llama-2-7b-chat.Q2_K.gguf --predict " << length << " --prompt \"Q:"<< system_prompt << prompt << " A: \" > ..\\MyLlama\\output.txt";
+    oss << "cd ..\\llama.cpp && del ..\\myllama\\output.txt && .\\build\\bin\\Release\\llama-completion.exe -m .\\models\\llama-2-7b-chat.Q2_K.gguf --predict " << length << " --prompt \"Q:"<< system_prompt << prompt << " A: \" > ..\\myllama\\output.txt";
     
     string command;
     command = oss.str();
