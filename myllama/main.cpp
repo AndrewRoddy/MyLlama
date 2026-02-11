@@ -36,7 +36,8 @@ void Llama(
     string length = "1000",
     string system_prompt = "In english, "
     ){
-    string output_file = "my_output.txt";
+    string output_file = "output.txt";
+    string model_name = "llama-2-7b-chat.Q2_K.gguf";
 
     std::ostringstream oss; // Used to concatenate strings
 
@@ -47,7 +48,7 @@ void Llama(
     // Ensure output_file exists before running
     { std::ofstream touch(output_file, std::ios::app); }
 
-    oss << "cd ..\\llama.cpp && .\\build\\bin\\Release\\llama-completion.exe -m .\\models\\llama-2-7b-chat.Q2_K.gguf --predict " << length << " --prompt \"Q:"<< system_prompt << prompt << " A: \" > ..\\myllama\\" << output_file << " 2>nul";
+    oss << "cd ..\\llama.cpp && .\\build\\bin\\Release\\llama-completion.exe -m .\\models\\" << model_name << " --predict " << length << " --prompt \"Q:"<< system_prompt << prompt << " A: \" > ..\\myllama\\" << output_file << " 2>nul";
     
     string command;
     command = oss.str();
