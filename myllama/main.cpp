@@ -8,6 +8,49 @@ using std::cin; using std::cout; using std::endl;
 using std::string; using std::system;
 
 
+struct Config {
+    int length;
+    string system_prompt;
+    string output_file;
+    string model_name;
+};
+
+string get_json_string(const string& json, const string& key) {
+    string search = "\"" + key + "\"";
+    size_t pos = json.find(search);
+    if (pos == string::npos) return "";
+    pos = json.find(":", pos);
+    size_t start = json.find("\"", pos + 1) + 1;
+    size_t end = json.find("\"", start);
+    return json.substr(start, end - start);
+}
+
+int get_json_int(const string& json, const string& key) {
+    string search = "\"" + key + "\"";
+    size_t pos = json.find(search);
+    if (pos == string::npos) return 0;
+    pos = json.find(":", pos) + 1;
+    while (pos < json.size() && json[pos] == ' ') pos++;
+    string num;
+    while (pos < json.size() && json[pos] >= '0' && json[pos] <= '9')
+        num += json[pos++];
+    return std::stoi(num);
+}
+
+Config load_config(const string& path = "config.json") {
+    std::ifstream file(path);
+    string json((std::istreambuf_iterator<char>(file)),
+                 std::istreambuf_iterator<char>());
+    file.close();
+
+    Config config;
+    config.length = get_json_int(json, "length");
+    config.system_prompt = get_json_string(json, "system_prompt");
+    config.output_file = get_json_string(json, "output_file");
+    config.model_name = get_json_string(json, "model_name");
+    return config;
+}
+
 string clean_output (string raw){
     string cleaned;
     for (size_t i = 0; i < raw.size(); i++) {
@@ -67,11 +110,11 @@ void Llama(
 }
 
 int main() {
-    string prompt;
-    int length = 99;
+    Config config = load_config();
+    string prompt;  
 
     cout << "Enter your prompt: ";
     std::getline(cin, prompt);
 
-    Llama(prompt, length);
+    Llama(prompt, config.length, config.system_prompt, config.output_file, config.model_name);
 }

@@ -1,0 +1,6 @@
+{
+    "length": 99,
+    "system_prompt": "In english, ",
+    "output_file": "output.txt",
+    "model_name": "llama-2-7b-chat.Q2_K.gguf"
+}
