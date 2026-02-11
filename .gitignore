@@ -1,4 +1,4 @@
-# *.exe
-# /llama.cpp/
-# output.txt
-..vscode
+*.exe
+/llama.cpp/
+output.txt
+/.vscode/
