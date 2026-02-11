@@ -1,8 +1,24 @@
+# Llama cpp runner
+
+# Steps to build repository
+1. Clone llama.cpp directory in source folder
+```
+git clone https://github.com/ggml-org/llama.cpp
+```
+
+2. Make sure you directory looks like this
+```
+|-- llama.cpp
+|-- myllama
+|   |-- myLlama.cpp
+|   |-- output.txt
+|   README.md
+```
 
 
-Steps to make this work:
 1. Put llama.cpp into a folder next to this
-    - [Download Website](https://github.com/ggerganov/llama.cpp) 
+    - Download from 
+    [Download Website](https://github.com/ggerganov/llama.cpp) 
     - should look like `MyLlama\llama.cpp\server.exe`
 2. Build llama.cpp 
     - (This was VERY difficult for me) After many different attempts I used this method (Windows) ->

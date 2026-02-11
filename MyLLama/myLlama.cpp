@@ -9,8 +9,8 @@ using std::string; using std::system;
 
 void Llama(
     string prompt="STOP",
-    string length = "20",
-    string system_prompt = "In english and in one sentance "
+    string length = "1000",
+    string system_prompt = "In english, "
     ){
     std::ostringstream oss; // Used to concatenate strings
 
