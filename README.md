@@ -38,5 +38,14 @@ Download the model into the folder (took my computer ~9 minutes)
 ```
 curl.exe -L -o llama-2-7b-chat.Q2_K.gguf https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGUF/resolve/main/llama-2-7b-chat.Q2_K.gguf
 ```
-#### Go back into the myllama folder
-
+#### Run myllama
+Go back into the myllama folder
+```
+cd ../../myllama
+```
+Compile then run myllama
+```
+g++ myllama.cpp
+./a.exe
+```
+Then just type in your prompt to ask a question
