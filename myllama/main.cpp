@@ -7,6 +7,30 @@
 using std::cin; using std::cout; using std::endl;
 using std::string; using std::system;
 
+
+string clean_output (string raw){
+    string cleaned;
+    for (size_t i = 0; i < raw.size(); i++) {
+        // Skip ANSI escape sequences (ESC [ ... final_char)
+        if (raw[i] == '\x1b' && i + 1 < raw.size() && raw[i + 1] == '[') {
+            i += 2; // skip ESC and [
+            while (i < raw.size() && raw[i] != 'm' && raw[i] != 'H'
+                   && raw[i] != 'J' && raw[i] != 'K' && raw[i] != 'A'
+                   && raw[i] != 'B' && raw[i] != 'C' && raw[i] != 'D')
+                i++;
+            continue;
+        }
+        // Keep only printable ASCII, newlines, and tabs
+        if ((raw[i] >= 32 && raw[i] <= 126) || raw[i] == '\n' || raw[i] == '\t')
+            cleaned += raw[i];
+    }
+
+    // Removes the first space
+    cleaned = cleaned.substr(1,cleaned.size());
+
+    return cleaned;
+}
+
 void Llama(
     string prompt="STOP",
     string length = "1000",
@@ -38,22 +62,8 @@ void Llama(
                 std::istreambuf_iterator<char>());
     infile.close();
 
-    string cleaned;
-    for (size_t i = 0; i < raw.size(); i++) {
-        // Skip ANSI escape sequences (ESC [ ... final_char)
-        if (raw[i] == '\x1b' && i + 1 < raw.size() && raw[i + 1] == '[') {
-            i += 2; // skip ESC and [
-            while (i < raw.size() && raw[i] != 'm' && raw[i] != 'H'
-                   && raw[i] != 'J' && raw[i] != 'K' && raw[i] != 'A'
-                   && raw[i] != 'B' && raw[i] != 'C' && raw[i] != 'D')
-                i++;
-            continue;
-        }
-        // Keep only printable ASCII, newlines, and tabs
-        if ((raw[i] >= 32 && raw[i] <= 126) || raw[i] == '\n' || raw[i] == '\t')
-            cleaned += raw[i];
-    }
-
+    string cleaned = clean_output(raw);
+    
     std::ofstream outfile("output.txt");
     outfile << cleaned;
     outfile.close();
