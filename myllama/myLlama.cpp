@@ -18,17 +18,12 @@ void Llama(
     // Adds 6 because Q: and A: is 6 characters long!
     length += prompt.length() + system_prompt.length() + 6; 
 
-    // Create output.txt if it doesn't exist, otherwise clear it
-    {
-        std::ifstream check("output.txt");
-        if (!check.good()) {
-            std::ofstream create("output.txt");
-        }
-    }
+    // Ensure output.txt exists before running
+    { std::ofstream touch("output.txt", std::ios::app); }
 
     sleep(1);
 
-    oss << "cd ..\\llama.cpp && del ..\\myllama\\output.txt && .\\build\\bin\\Release\\llama-completion.exe -m .\\models\\llama-2-7b-chat.Q2_K.gguf --predict " << length << " --prompt \"Q:"<< system_prompt << prompt << " A: \" > ..\\myllama\\output.txt 2>nul";
+    oss << "cd ..\\llama.cpp && .\\build\\bin\\Release\\llama-completion.exe -m .\\models\\llama-2-7b-chat.Q2_K.gguf --predict " << length << " --prompt \"Q:"<< system_prompt << prompt << " A: \" > ..\\myllama\\output.txt 2>nul";
     
     string command;
     command = oss.str();
@@ -36,6 +31,8 @@ void Llama(
     system(command.c_str());
 
     // Clean output.txt: remove ANSI escape codes and non-ASCII characters
+    // Create the file if it wasn't created by llama-completion
+    { std::ofstream touch("output.txt", std::ios::app); }
     std::ifstream infile("output.txt");
     string raw((std::istreambuf_iterator<char>(infile)),
                 std::istreambuf_iterator<char>());
