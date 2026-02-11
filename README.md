@@ -10,7 +10,7 @@ Make sure you directory looks like this
 ```
 |-- llama.cpp
 |-- myllama
-|   |-- myLlama.cpp
+|   |-- main.cpp
 |   |-- output.txt
 |   README.md
 ```
@@ -43,9 +43,9 @@ Go back into the myllama folder
 ```
 cd ../../myllama
 ```
-Compile then run myllama
+Compile then run myllama (main.cpp)
 ```
-g++ myllama.cpp
+g++ main.cpp
 ./a.exe
 ```
 Then just type in your prompt to ask a question
