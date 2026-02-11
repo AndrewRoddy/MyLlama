@@ -1,12 +1,12 @@
 # Llama cpp runner
 
-# Steps to build repository
-1. Clone llama.cpp directory in source folder
+## Steps to build repository
+#### Clone llama.cpp directory in source folder
 ```
 git clone https://github.com/ggml-org/llama.cpp
 ```
 
-2. Make sure you directory looks like this
+#### Make sure you directory looks like this
 ```
 |-- llama.cpp
 |-- myllama
@@ -14,6 +14,28 @@ git clone https://github.com/ggml-org/llama.cpp
 |   |-- output.txt
 |   README.md
 ```
+
+#### Run CMake in the llama.cpp directory
+Switch to the proper directory. 
+```
+cd llama.cpp
+```
+Then run CMake
+```
+cmake -B build
+```
+
+#### Download the gguf to run the model in the models folder
+Go into the models folder
+```
+cd models
+```
+Instantly download the model into the folder
+```
+curl.exe -L -o llama-2-7b-chat.Q2_K.gguf https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGUF/resolve/main/llama-2-7b-chat.Q2_K.gguf
+```
+#### Go back into the myllama folder
+
 
 
 1. Put llama.cpp into a folder next to this
