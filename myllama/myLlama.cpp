@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cstdlib>  // For std::system
 #include <sstream>
-//#include <fstream> // For reading files
+#include <fstream> // For file operations
 #include <unistd.h> // For sleep() // In seconds
 
 using std::cin; using std::cout; using std::endl;
@@ -18,8 +18,13 @@ void Llama(
     // Adds 6 because Q: and A: is 6 characters long!
     length += prompt.length() + system_prompt.length() + 6; 
 
-    // Deletes output.txt
-    system("del output.txt");
+    // Create output.txt if it doesn't exist, otherwise clear it
+    {
+        std::ifstream check("output.txt");
+        if (!check.good()) {
+            std::ofstream create("output.txt");
+        }
+    }
 
     sleep(1);
 
