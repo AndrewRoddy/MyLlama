@@ -84,3 +84,4 @@ Edit `myllama/config.json` to customize behavior:
 | `system_prompt` | Text prepended to your prompt for context        |
 | `output_file`   | File where the cleaned response is saved         |
 | `model_name`    | GGUF model filename inside `llama.cpp/models/`   |
+
