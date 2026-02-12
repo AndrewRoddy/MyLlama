@@ -69,7 +69,8 @@ string clean_output (string raw){
     }
 
     // Removes the first space
-    cleaned = cleaned.substr(1,cleaned.size());
+    if (!cleaned.empty())
+        cleaned = cleaned.substr(1,cleaned.size());
 
     return cleaned;
 }
