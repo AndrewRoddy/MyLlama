@@ -1,6 +1,6 @@
 # MyLlama
 
-A lightweight C++ command-line interface for [llama.cpp](https://github.com/ggml-org/llama.cpp) for running local Llama models. Enter a prompt, get a response — no server, no Python, no dependencies beyond a C++ compiler.
+A lightweight C++ command-line interface for [llama.cpp](https://github.com/ggml-org/llama.cpp) for running local Llama models. Enter a prompt to get a response with no server, no Python, and no dependencies beyond a C++ compiler.
 
 ## Features
 
