@@ -44,7 +44,7 @@ cmake -B build
 cmake --build build --config Release
 ```
 
-> **Note:** The build step can take a while (~19 minutes depending on your hardware).
+**Note:** The build step can take a while (~19 minutes depending on your hardware).
 
 ### 3. Download a model
 
@@ -53,7 +53,7 @@ cd llama.cpp/models
 curl -L -o llama-2-7b-chat.Q2_K.gguf https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGUF/resolve/main/llama-2-7b-chat.Q2_K.gguf
 ```
 
-> **Note:** This is a ~3 GB download.
+**Note:** This is a ~3 GB download.
 
 ### 4. Compile and run
 
